@@ -10,19 +10,50 @@
     <script type="text/javascript" src="ext-5.1.1/build/ext-all-debug.js"></script>
     <script type="text/javascript">
 
+        var viewModel = Ext.create('Ext.app.ViewModel', {
+            data : {
+                mydata: 'data set from viewModel',
+                defaultCheckboxValue: false
+            }
+        });
+
         Ext.application({
             name: 'MyApp',
             launch: function() {
 
                 var panel = Ext.create('Ext.Panel', {
                     renderTo: Ext.getBody(),
+                    viewModel: viewModel,
                     width: 500,
                     height: 150,
-                    title: 'our first app in ExtJS 5 cource'
+                    title: 'our first app in ExtJS 5 cource',
+                    html: "this is my html",
+                    bind: {
+                        html: '{mydata}'
+                    },
+                    items: [
+                        {
+                            xtype: 'fieldcontainer',
+                            fieldLabel: 'Toppings',
+                            defaultType: 'checkboxfield',
+                            items: [
+                                {
+                                    boxLabel: 'test',
+                                    name: 'test_checkbox',
+                                    inputValue: '1',
+                                    id: 'checkbox1',
+                                    bind: {
+                                        value: '{defaultCheckboxValue}'
+                                    }
+                                }
+                            ]
+                        }
+                    ]
                 });
 
                 panel.setHtml('this is our first text');
-
+                panel.viewModel.set('mydata', 'modifed view model');
+                panel.viewModel.set('defaultCheckboxValue', true);
             }
         });
 
