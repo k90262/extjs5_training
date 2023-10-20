@@ -23,14 +23,9 @@
 
                 var panel = Ext.create('Ext.Panel', {
                     renderTo: Ext.getBody(),
-                    viewModel: viewModel,
-                    width: 500,
-                    height: 150,
-                    title: 'our first app in ExtJS 5 cource',
-                    html: "this is my html",
-                    bind: {
-                        html: '{mydata}'
-                    },
+                    layout: 'vbox',
+                    //bind: {
+                    //},
                     items: [
                         {
                             xtype: 'fieldcontainer',
@@ -47,13 +42,32 @@
                                     }
                                 }
                             ]
+                        },
+                        {
+                            xtype: 'panel',
+                            bind: {
+                                html: '{mydata}:{defaultCheckboxValue}'
+                            }
+                        },
+                        {
+                            xtype: 'textfield',
+                            bind: {
+                                value: '{mydata}',
+                                fieldLabel: 'My Data'
+                            }
                         }
-                    ]
+                    ],
+                    viewModel: viewModel,
+                    width: 500,
+                    height: 150,
+                    title: 'our first app in ExtJS 5 cource',
                 });
 
-                panel.setHtml('this is our first text');
-                panel.viewModel.set('mydata', 'modifed view model');
-                panel.viewModel.set('defaultCheckboxValue', true);
+                //panel.setHtml('this is our first text');
+                //panel.viewModel.set('mydata', 'modifed view model');    // 2-way binding will be failed to update UI by modifying viewmodel immediately once root panel don't include key-value `bind: {...}`
+                //panel.viewModel.set('defaultCheckboxValue', true);      // OR, 2-way binding will be worked to update UI by modifying viewmodel immediately once root panel include key-value `bind: {...}`
+                viewModel.set('mydata', 'modifed view model');
+                viewModel.set('defaultCheckboxValue', true);
             }
         });
 
