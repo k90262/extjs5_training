@@ -12,9 +12,16 @@
 
         var viewModel = Ext.create('Ext.app.ViewModel', {
             data : {
-                mydata: 'data set from viewModel',
-                defaultCheckboxValue: false
+                defaultCheckboxValue: false,
+                firstName: 'George',
+                lastName: 'Washington'
+            },
+            formulas: {
+                fullname: function(get) {
+                    return get('firstName') + ' ' + get('lastName');
+                }
             }
+
         });
 
         Ext.application({
@@ -23,10 +30,16 @@
 
                 var panel = Ext.create('Ext.Panel', {
                     renderTo: Ext.getBody(),
-                    layout: 'vbox',
+                    layout: 'fit',
                     //bind: {
                     //},
                     items: [
+                        {
+                            xtype: 'panel',
+                            bind: {
+                                html: '{fullname} (defaultCheckboxValue:{defaultCheckboxValue})'
+                            }
+                        },
                         {
                             xtype: 'fieldcontainer',
                             fieldLabel: 'Toppings',
@@ -42,19 +55,6 @@
                                     }
                                 }
                             ]
-                        },
-                        {
-                            xtype: 'panel',
-                            bind: {
-                                html: '{mydata}:{defaultCheckboxValue}'
-                            }
-                        },
-                        {
-                            xtype: 'textfield',
-                            bind: {
-                                value: '{mydata}',
-                                fieldLabel: 'My Data'
-                            }
                         }
                     ],
                     viewModel: viewModel,
@@ -66,8 +66,15 @@
                 //panel.setHtml('this is our first text');
                 //panel.viewModel.set('mydata', 'modifed view model');    // 2-way binding will be failed to update UI by modifying viewmodel immediately once root panel don't include key-value `bind: {...}`
                 //panel.viewModel.set('defaultCheckboxValue', true);      // OR, 2-way binding will be worked to update UI by modifying viewmodel immediately once root panel include key-value `bind: {...}`
-                viewModel.set('mydata', 'modifed view model');
                 viewModel.set('defaultCheckboxValue', true);
+
+                panel.getViewModel().set({
+                    firstName: 'Richard',
+                    lastName: 'Nixon'
+                });
+
+                var viewModel1 = panel.getViewModel()
+                viewModel1.set('firstName', 'Ronald');
             }
         });
 
