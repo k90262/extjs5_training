@@ -6,5 +6,5 @@
 Ext.application({
     name: 'TabletApp',
     extend: 'TabletApp.Application',
-    appFolder: 'app-100-twogrids'
+    appFolder: 'app-200-addstoreinviewmodel'
 });

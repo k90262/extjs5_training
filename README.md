@@ -1,12 +1,12 @@
 # Course 'What's New in ExtJS 5' training
 
-Course: What's New in ExtJS 5
+__Training Course:__ What's New in ExtJS 5
 https://app.pluralsight.com/library/courses/extjs-5-whats-new/table-of-contents
 
-ExtJS ver. and source: (partial use)
+__ExtJS library ver. and source:__ (partial use)
 http://cdn.sencha.com/ext/gpl/ext-5.1.1-gpl.zip
 
-GPL License
+_Using GPL License_
 
 ------------
 
@@ -17,7 +17,9 @@ GPL License
 ```
 cd [repo_root_folder]
 idea .
-# Choose .html file and open it by intelliJ
+# Choose .html file and open it as web page via intelliJ
+# e.g.
+# index-10-extjs4-basicmodelNew.html
 ```
 
 ### Example 2. Run using python3 web server
