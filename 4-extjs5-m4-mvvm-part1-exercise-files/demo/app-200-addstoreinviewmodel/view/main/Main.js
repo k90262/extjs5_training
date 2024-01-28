@@ -10,7 +10,8 @@ Ext.define('TabletApp.view.main.Main', {
     requires: [
       'TabletApp.view.sessiondetail.SessionDetail',
       'TabletApp.view.sessionlist.SessionList',
-      'TabletApp.view.main.MainController'
+      'TabletApp.view.main.MainController',
+      'TabletApp.view.main.MainModel'
     ],
 
     xtype: 'app-main',

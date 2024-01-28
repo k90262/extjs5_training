@@ -6,17 +6,17 @@ Ext.define("TabletApp.view.sessionlist.SessionList", {
     ],
     alias: 'widget.sessionlist',
     "controller": "sessionlist-sessionlist",
-//    "viewModel": {
-//        "type": "sessionlist-sessionlist"
-//    },
+   // "viewModel": {
+   //     "type": "sessionlist-sessionlist"
+   // },
 
-   store: {
-       model: 'Session',
-       autoLoad: true
-   },
-//     bind: {
-//         store: '{sessionListByInterest}'
-//     },
+   // store: {
+   //     model: 'Session',
+   //     autoLoad: true
+   // },
+    bind: {
+        store: '{sessionListByInterest}'
+    },
 
     columns: [
         {
