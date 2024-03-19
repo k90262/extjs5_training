@@ -6,5 +6,5 @@
 Ext.application({
     name: 'TabletApp',
     extend: 'TabletApp.Application',
-    appFolder: 'app-200-addstoreinviewmodel'
+    appFolder: 'app-300-sessiondetailswithbinding'
 });
