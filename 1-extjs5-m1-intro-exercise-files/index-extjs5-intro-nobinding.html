@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Welcome to Ext JS!</title>
+    <link rel="stylesheet" type="text/css"
+          href="../ext-5.1.1/build/packages/ext-theme-neptune/build/resources/ext-theme-neptune-all.css">
+    <script type="text/javascript" src="../ext-5.1.1/build/ext-all-debug.js"></script>
+    <script type="text/javascript"
+            src="../ext-5.1.1/build/packages/ext-theme-neptune/build/ext-theme-neptune.js"></script>
+
+    <script type="text/javascript">
+
+        Ext.application({
+            name: 'testapp',
+            requires: [
+                'Ext.grid.Panel',
+                'Ext.form.Panel',
+                'Ext.container.Viewport',
+                'Ext.data.proxy.Rest'
+
+            ],
+
+            launch: function () {
+
+                var myModel = Ext.define("Session", {
+                    extend: 'Ext.data.Model',
+                    fields: ['id', 'title', 'approved'],
+                    proxy: {
+                        type: 'rest',
+                        url: 'session.json',
+                        reader: {
+                            type: 'json',
+                            rootProperty: 'data'
+                        }
+                    }
+                });
+
+
+                Ext.define('MyGrid', {
+                    extend: 'Ext.grid.Panel',
+                    xtype: 'mygrid',
+                    region: 'center',
+                    flex: 2,
+
+                    store: {
+                        model: 'Session',
+                        autoLoad: true
+                    },
+
+                    listeners: {
+                        select: function (obj, record, index) {
+                            var title = record.get('title');
+                            this.up().down('form').down('textfield').
+                                    setValue(title);
+                        }
+
+                    },
+
+
+                    columns: [
+                        {
+                            header: 'Id',
+                            dataIndex: 'id',
+                            itemId: 'idColumn',
+                            hidden: true
+
+                        },
+                        {
+                            header: 'Title',
+                            dataIndex: 'title',
+                            flex: 1
+                        }
+                    ]
+                });
+
+                Ext.define('MyForm', {
+                    extend: 'Ext.form.Panel',
+                    xtype: 'myform',
+                    title: 'Session Details',
+                    flex: 1,
+                    region: 'east',
+                    collapsible: true,
+                    collapseDirection: 'right',
+                    split: true,
+                    bodyPadding: 20,
+
+                    listeners: {
+                        collapse: function () {
+                            this.up().down('grid').
+                                    down('#idColumn').show();
+                        },
+                        expand: function () {
+                            this.up().down('grid').
+                                    down('#idColumn').hide()
+                        }
+                    },
+                    items: [
+                        {
+                            xtype: 'textfield',
+                            anchor: '90%',
+                            fieldLabel: 'Title',
+                            listeners: {
+                                change: function (component, newValue) {
+                                    component.up().up().down('grid').
+                                            getSelectionModel().
+                                            getLastSelected().
+                                            set('title', newValue);
+                                }
+                            }
+
+                        }
+                    ]
+                });
+
+
+                Ext.create('Ext.container.Viewport', {
+                    layout: 'fit',
+                    items: [
+                        {
+                            xtype: 'panel',
+                            layout: 'border',
+                            items: [
+                                {
+                                    xtype: 'myform'
+                                },
+                                {
+                                    xtype: 'mygrid'
+                                }
+                            ]
+                        }
+                    ]
+
+                });
+
+
+            }
+        });
+    </script>
+
+
+</head>
+<body></body>
+</html>
